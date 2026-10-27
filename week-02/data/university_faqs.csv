@@ -1,0 +1,17 @@
+
+id,question,answer,category
+1,How do I reset my student portal password?,Use the forgot password option on the student portal login page and follow the instructions sent to your registered email.,Account
+2,How can I register for courses?,Log in to the student portal and select course registration during the announced registration period.,Registration
+3,Where can I see my exam results?,You can view your published examination results through the grades section of the student portal.,Academics
+4,How do I get my academic transcript?,Contact the university registrar office to request an official academic transcript.,Academics
+5,What should I do if I lose my student ID card?,Report the lost ID to the student services office and request a replacement card.,Student Services
+6,How can I connect to campus Wi-Fi?,Select the campus wireless network and sign in using the credentials provided by university IT support.,Technology
+7,How do I borrow books from the library?,Present your valid student ID at the library circulation desk and follow the borrowing rules.,Library
+8,How can I renew a borrowed library book?,Use the library renewal service or contact the circulation desk before the due date.,Library
+9,How can I apply for student housing?,Contact the student housing office and follow the application process during the announced period.,Housing
+10,Where can I get help with my university email?,Contact the campus IT help desk for assistance with your university email account.,Technology
+11,How do I withdraw from a course?,Consult your academic advisor and submit the required withdrawal request before the deadline.,Registration
+12,How can I find my class timetable?,Check the class schedule section of the student portal or contact your department.,Academics
+13,What should I do if my grades are incorrect?,Contact your course instructor or department to request a grade review.,Academics
+14,How can I access online learning materials?,Log in to the university learning management system using your assigned credentials.,Technology
+15,How can I contact my academic advisor?,Contact your department office to obtain your advisor's contact details and consultation schedule.,Student Services
