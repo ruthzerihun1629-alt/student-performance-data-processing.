@@ -1,5 +1,6 @@
-import pandas as pd
+import pandas as pd 
 from pathlib import Path
+import chromadb
 
 DATA_PATH = Path(__file__).resolve().parent / "data" / "university_faqs.csv"
 
@@ -60,6 +61,55 @@ def chunk_faqs(df, max_words=100):
             })
 
     return chunks
+def store_embeddings(chunks):
+    client = chromadb.PersistentClient(path="week-02/chroma_db")
+
+    collection = client.get_or_create_collection(
+        name="university_faqs"
+    )
+
+    collection.upsert(
+        ids=[f"chunk_{i}" for i in range(len(chunks))],
+        documents=[chunk["text"] for chunk in chunks],
+        metadatas=[
+            {
+                "faq_id": chunk["faq_id"],
+                "category": chunk["category"]
+            }
+            for chunk in chunks
+        ]
+    )
+
+    print("Embeddings stored successfully!")
+    print("Total stored chunks:", collection.count())
+
+    return collection
+
+def search_faqs(collection, query, top_k=3):
+    results = collection.query(
+        query_texts=[query],
+        n_results=top_k
+    )
+
+    print(f"\nSearch query: {query}")
+    print(f"\nTop {top_k} matches:\n")
+
+    for i, (document, distance, metadata) in enumerate(
+        zip(
+            results["documents"][0],
+            results["distances"][0],
+            results["metadatas"][0]
+        ),
+        start=1
+    ):
+        print(f"Match {i}")
+        print(f"Category: {metadata['category']}")
+        print(f"FAQ ID: {metadata['faq_id']}")
+        print(f"Text: {document}")
+        print(f"Distance: {distance:.4f}")
+        print("-" * 50)
+
+
 
 if __name__ == "__main__":
     df = load_faqs()
@@ -70,7 +120,10 @@ if __name__ == "__main__":
     chunks = chunk_faqs(cleaned_df)
     print("Total chunks:", len(chunks))
 
-    print("\nFirst chunk:")
-    print(chunks[0])
+    collection = store_embeddings(chunks)
 
-    load_faqs()
+    search_faqs(
+        collection,
+        "I forgot my university account password",
+        top_k=3
+    )
